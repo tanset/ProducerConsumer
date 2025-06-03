@@ -1,21 +1,27 @@
-Problem Statement :
-====================
-Write a program which launches 4 threads - 2 consumer threads and 2 producer threads. Threads
-are created in JOINABLE Mode.
-All 4 threads act on a shared resource - A Queue of integers. Producer threads produce
-a random integer and add it to Queue, Consumer threads remove an integer from the Queue.
-Maximum size of the Queue is 5.
+# Producer-Consumer Problem with Circular Queue (Multithreading in C)
 
-Following are the constraints applied :
+This project demonstrates a classic **Producer-Consumer** problem using multithreading in C, with a custom circular queue implementation for thread-safe communication between producers and consumers.
 
-1. When producer threads produce an element and add it to the Queue, it does not release the Queue
-untill the Queue is full i.e producer thread release the Queue only when it is full
+## Features
 
-2. When consumer threads consume an element from the Queue, it consumes the entire Queue and
-do not release it until the Queue is empty.
+- **4 Threads:** 2 producer threads and 2 consumer threads.
+- **Thread Synchronization:** Uses mutex and condition variables for safe concurrent access.
+- **Circular Queue:** Fixed size (default 5), implemented in C.
+- **Blocking Behavior:**  
+  - Producers fill the queue and only release the lock when the queue is full.  
+  - Consumers drain the queue and only release the lock when the queue is empty.
+- **Debug Output:** Extensive `printf` statements for step-by-step tracing.
 
-3. Consumer Signals the Producers when Queue is Exhausted, Producers Signals the Consumers when Queue	
-becomes full
+## Problem Statement
 
-Guidelines :
-Use as many printfs as possible, so you can debug the program easily
+- Producers generate random integers and add them to the shared queue.
+- Consumers remove integers from the queue.
+- Producers wait if the queue is full; consumers wait if the queue is empty.
+- Proper signaling between producers and consumers using condition variables.
+
+## Build & Run
+
+```sh
+gcc -g -c [Queue.c](http://_vscodecontentref_/0) -o [Queue.o](http://_vscodecontentref_/1)
+gcc -g [Assignment_prod_cons_on_Q.c](http://_vscodecontentref_/2) [Queue.o](http://_vscodecontentref_/3) -o prod_cons -lpthread
+./prod_cons
